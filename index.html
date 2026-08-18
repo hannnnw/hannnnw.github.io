@@ -26,6 +26,8 @@
       --amber-light: #FFFBEB;
       --rose: #E11D48;
       --rose-light: #FFF1F2;
+      --purple: #7C3AED;
+      --purple-light: #F5F3FF;
       --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
       --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
       --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
@@ -96,7 +98,40 @@
 
     .hero {
       text-align: center;
-      padding: 72px 20px 56px;
+      padding: 72px 20px 40px;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, rgba(37,99,235,0.02) 40%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: heroPulse 6s ease-in-out infinite;
+    }
+
+    @keyframes heroPulse {
+      0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.8; }
+      50% { transform: translateX(-50%) scale(1.05); opacity: 1; }
+    }
+
+    .hero-avatar {
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--surface);
+      box-shadow: var(--shadow-lg), 0 0 0 2px var(--accent-soft);
+      margin-bottom: 24px;
+      animation: avatarFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes avatarFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
     }
 
     .hero-tag {
@@ -126,6 +161,20 @@
       font-weight: 400;
       font-size: 17px;
       letter-spacing: -0.01em;
+      margin-bottom: 24px;
+    }
+
+    .about-section {
+      max-width: 640px;
+      margin: 0 auto 16px;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .about-text {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-secondary);
     }
 
     .section-label {
@@ -146,6 +195,97 @@
       height: 0;
       border-top: 1px solid var(--border);
     }
+
+    .skills-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 640px) { .skills-section { grid-template-columns: 1fr; } }
+
+    .skill-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 18px 20px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .skill-item:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .skill-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .skill-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .skill-level {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+    }
+
+    .skill-bar {
+      height: 6px;
+      background: var(--border-light);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+      width: 0;
+    }
+
+    .skill-bar-fill.blue { background: linear-gradient(90deg, var(--accent), #60A5FA); }
+    .skill-bar-fill.green { background: linear-gradient(90deg, var(--green), #34D399); }
+    .skill-bar-fill.amber { background: linear-gradient(90deg, var(--amber), #FBBF24); }
+    .skill-bar-fill.purple { background: linear-gradient(90deg, var(--purple), #A78BFA); }
+
+    .skill-badge-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .skill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
+      flex: 1;
+    }
+
+    .skill-badge-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700;
+    }
+
+    .skill-badge-icon.ielts { background: var(--green-light); color: var(--green); }
+    .skill-badge-icon.gre { background: var(--purple-light); color: var(--purple); }
+
+    .skill-badge-text { display: flex; flex-direction: column; }
+    .skill-badge-label { font-size: 12px; color: var(--text-tertiary); font-weight: 500; }
+    .skill-badge-score { font-size: 18px; font-weight: 700; color: var(--text-primary); }
 
     .edu-grid {
       display: grid;
@@ -217,9 +357,9 @@
       cursor: pointer;
       user-select: none;
       overflow: hidden;
-      transition: box-shadow 0.2s;
+      transition: box-shadow 0.25s, transform 0.25s;
     }
-    .tcard:hover { box-shadow: var(--shadow-md); }
+    .tcard:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
 
     .tcard-head { padding: 20px 24px; display: flex; align-items: center; gap: 14px; }
     .tcard-icon { width: 38px; height: 38px; flex-shrink:0; }
@@ -248,7 +388,7 @@
     .tcard-chev { width: 18px; height: 18px; color: var(--text-tertiary); flex-shrink:0; transition: transform 0.3s ease; }
     .tcard.open .tcard-chev { transform: rotate(180deg); }
 
-    .tcard-body { max-height: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1); }
+    .tcard-body { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1); }
     .tcard.open .tcard-body { border-top: 1px solid var(--border); }
     .tcard-body-inner { padding: 24px; }
 
@@ -273,11 +413,135 @@
     .skills-footer { padding: 18px 24px; display: flex; flex-wrap: wrap; gap: 6px; border-top: 1px solid var(--border); }
     .skill-tag { padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 500; background: var(--border-light); color: var(--text-secondary); }
 
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 640px) { .interests-grid { grid-template-columns: 1fr; } }
+
+    .interest-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .interest-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .interest-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .interest-body {
+      padding: 16px;
+      text-align: center;
+    }
+
+    .interest-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .interest-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .interest-badge {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--green);
+      background: var(--green-light);
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+
+    .contact-section {
+      margin-top: 56px;
+      text-align: center;
+    }
+
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px 32px;
+      box-shadow: var(--shadow-sm);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .contact-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .contact-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .contact-email-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(37,99,235,0.3);
+    }
+
+    .contact-email-btn:hover {
+      background: #1D4ED8;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(37,99,235,0.4);
+    }
+
+    .contact-email-btn svg {
+      width: 18px; height: 18px;
+    }
+
     .future-note { display: flex; align-items: center; gap: 12px; margin-top: 8px; padding-left: 40px; }
     .future-note svg { width: 24px; height: 24px; color: var(--text-tertiary); }
     .future-note span { font-size: 15px; color: var(--text-secondary); font-weight: 500; }
 
     .info-hint { text-align: center; margin-top: 56px; font-size: 14px; color: var(--text-tertiary); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
 
     @media (max-width: 640px) {
       .tcard-company { font-size: 16px; }
@@ -286,6 +550,13 @@
       .tnode { gap: 14px; }
       .topbar { padding: 14px 20px; }
       .main { padding: 0 16px 80px; }
+      .hero-avatar { width: 96px; height: 96px; }
+      .skill-badge-row { flex-direction: column; }
+      .interests-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 400px) {
+      .interests-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -300,18 +571,73 @@
 
   <main class="main">
     <section class="hero" aria-labelledby="hero-name">
+      <img class="hero-avatar" src="./assets/avatar.jpg" alt="Avatar" />
       <div class="hero-tag" id="hero-tag">Personal Portfolio</div>
       <h1 class="hero-name" id="hero-name">汪晗</h1>
       <p class="hero-sub" id="hero-sub">产品经理 · 策略产品 · 数据驱动</p>
     </section>
 
+    <section class="about-section reveal">
+      <p class="about-text" id="aboutText">从经济金融到计算机科学，我在跨学科的路径中找到了自己的产品直觉。擅长将复杂数据转化为可执行的业务策略，曾在小红书、美团、TikTok 的产品与运营一线验证增长逻辑。热爱探索未知——无论是一座陌生的城市，还是一个尚未被定义的产品方向。</p>
+    </section>
+
+    <section aria-labelledby="skillLabel">
+      <div class="section-label reveal"><h2 class="txt" id="skillLabel">技能图谱</h2><span class="rule"></span></div>
+      <div class="skills-section" id="skillsGrid">
+        <div class="skill-item reveal reveal-delay-1">
+          <div class="skill-header">
+            <span class="skill-name">SQL</span>
+            <span class="skill-level">Expert</span>
+          </div>
+          <div class="skill-bar"><div class="skill-bar-fill blue" data-width="95%"></div></div>
+        </div>
+        <div class="skill-item reveal reveal-delay-1">
+          <div class="skill-header">
+            <span class="skill-name" id="skillPD">产品设计</span>
+            <span class="skill-level">Expert</span>
+          </div>
+          <div class="skill-bar"><div class="skill-bar-fill green" data-width="92%"></div></div>
+        </div>
+        <div class="skill-item reveal reveal-delay-2">
+          <div class="skill-header">
+            <span class="skill-name" id="skillDA">数据分析</span>
+            <span class="skill-level">Expert</span>
+          </div>
+          <div class="skill-bar"><div class="skill-bar-fill amber" data-width="93%"></div></div>
+        </div>
+        <div class="skill-item reveal reveal-delay-2">
+          <div class="skill-header">
+            <span class="skill-name">Python</span>
+            <span class="skill-level">Advanced</span>
+          </div>
+          <div class="skill-bar"><div class="skill-bar-fill purple" data-width="80%"></div></div>
+        </div>
+      </div>
+      <div class="skill-badge-row reveal reveal-delay-3">
+        <div class="skill-badge">
+          <div class="skill-badge-icon ielts">IE</div>
+          <div class="skill-badge-text">
+            <span class="skill-badge-label">IELTS</span>
+            <span class="skill-badge-score">7.5</span>
+          </div>
+        </div>
+        <div class="skill-badge">
+          <div class="skill-badge-icon gre">GR</div>
+          <div class="skill-badge-text">
+            <span class="skill-badge-label">GRE</span>
+            <span class="skill-badge-score">324</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section aria-labelledby="eduLabel">
-      <div class="section-label"><h2 class="txt" id="eduLabel">教育背景</h2><span class="rule"></span></div>
+      <div class="section-label reveal"><h2 class="txt" id="eduLabel">教育背景</h2><span class="rule"></span></div>
       <div class="edu-grid" id="eduGrid"></div>
     </section>
 
     <section aria-labelledby="workLabel">
-      <div class="section-label"><h2 class="txt" id="workLabel">实习经历</h2><span class="rule"></span></div>
+      <div class="section-label reveal"><h2 class="txt" id="workLabel">实习经历</h2><span class="rule"></span></div>
       <div class="timeline" id="timeline"></div>
     </section>
 
@@ -319,6 +645,47 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14"/><path d="M6 13l6 6 6-6"/></svg>
       <span id="futureNote">更多精彩即将到来…</span>
     </div>
+
+    <section aria-labelledby="interestLabel">
+      <div class="section-label reveal"><h2 class="txt" id="interestLabel">个人兴趣</h2><span class="rule"></span></div>
+      <div class="interests-grid reveal">
+        <div class="interest-card">
+          <img class="interest-img" src="./assets/travel.jpg" alt="Travel" />
+          <div class="interest-body">
+            <div class="interest-title" id="intTravel">旅行探索</div>
+            <div class="interest-desc" id="intTravelDesc">独自探索世界各地，规划深度路线</div>
+          </div>
+        </div>
+        <div class="interest-card">
+          <img class="interest-img" src="./assets/content.jpg" alt="Content" />
+          <div class="interest-body">
+            <div class="interest-title" id="intContent">图文内容创作</div>
+            <div class="interest-desc" id="intContentDesc">探店 & 攻略，小红书内容博主</div>
+            <div class="interest-badge" id="intContentBadge">已商业化接单</div>
+          </div>
+        </div>
+        <div class="interest-card">
+          <div class="interest-img" style="height:160px; background: linear-gradient(135deg, var(--accent-light), var(--purple-light)); display: flex; align-items: center; justify-content: center;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="interest-body">
+            <div class="interest-title" id="intProd">产品思维</div>
+            <div class="interest-desc" id="intProdDesc">从 0 到 1 构建产品与增长策略</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section reveal" aria-labelledby="contactTitle">
+      <div class="contact-card">
+        <h2 class="contact-title" id="contactTitle">与我联系</h2>
+        <p class="contact-desc" id="contactDesc">欢迎交流产品、数据、内容创作相关话题</p>
+        <a class="contact-email-btn" href="mailto:e1582480@u.nus.edu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg>
+          <span>e1582480@u.nus.edu</span>
+        </a>
+      </div>
+    </section>
 
     <p class="info-hint" id="infoHint">点击卡片查看详情</p>
   </main>
@@ -360,12 +727,26 @@
       zh: {
         heroTag: 'Personal Portfolio', heroName: '汪晗', heroSub: '产品经理 · 策略产品 · 数据驱动',
         eduLabel: '教育背景', workLabel: '实习经历', futureNote: '更多精彩即将到来…',
-        infoHint: '点击卡片查看详情', nowTag: '进行中'
+        infoHint: '点击卡片查看详情', nowTag: '进行中',
+        skillLabel: '技能图谱', skillPD: '产品设计', skillDA: '数据分析',
+        aboutText: '从经济金融到计算机科学，我在跨学科的路径中找到了自己的产品直觉。擅长将复杂数据转化为可执行的业务策略，曾在小红书、美团、TikTok 的产品与运营一线验证增长逻辑。热爱探索未知——无论是一座陌生的城市，还是一个尚未被定义的产品方向。',
+        interestLabel: '个人兴趣',
+        intTravel: '旅行探索', intTravelDesc: '独自探索世界各地，规划深度路线',
+        intContent: '图文内容创作', intContentDesc: '探店 & 攻略，小红书内容博主', intContentBadge: '已商业化接单',
+        intProd: '产品思维', intProdDesc: '从 0 到 1 构建产品与增长策略',
+        contactTitle: '与我联系', contactDesc: '欢迎交流产品、数据、内容创作相关话题'
       },
       en: {
         heroTag: 'Personal Portfolio', heroName: 'Wang Han', heroSub: 'Product Manager · Strategy · Data-Driven',
         eduLabel: 'Education', workLabel: 'Experience', futureNote: 'More to come…',
-        infoHint: 'Click cards to expand details', nowTag: 'Ongoing'
+        infoHint: 'Click cards to expand details', nowTag: 'Ongoing',
+        skillLabel: 'Skills', skillPD: 'Product Design', skillDA: 'Data Analysis',
+        aboutText: "From Economics & Finance to Computer Science, I found my product intuition through an interdisciplinary journey. I excel at transforming complex data into actionable business strategies, having validated growth logic on the front lines at Xiaohongshu, Meituan, and TikTok. I love exploring the unknown — whether it's an unfamiliar city or an undefined product direction.",
+        interestLabel: 'Interests',
+        intTravel: 'Solo Travel', intTravelDesc: 'Exploring cities worldwide with curated routes',
+        intContent: 'Content Creation', intContentDesc: 'Food & travel content on Xiaohongshu', intContentBadge: 'Monetized',
+        intProd: 'Product Thinking', intProdDesc: 'Building products & growth strategies from 0 to 1',
+        contactTitle: 'Get in Touch', contactDesc: 'Open to conversations about product, data, and content'
       }
     };
 
@@ -374,7 +755,7 @@
         zh: { degree: '本科', school: '西交利物浦大学', meta: '经济与金融专业　|　2021.09 - 2025.07',
           desc: '主修经济学与金融学，系统学习宏微观经济学、计量经济学、金融市场与投资分析等核心课程。',
           highlights: ['西安交通大学访问学习（2022.09 - 2023.07）— 访问学习奖学金', '格罗宁根大学交换（2023.08 - 2024.07）— 交换奖学金'] },
-        en: { degree: 'Bachelor\'s Degree', school: "Xi'an Jiaotong-Liverpool University", meta: 'Economics & Finance　|　Sep 2021 - Jul 2025',
+        en: { degree: "Bachelor's Degree", school: "Xi'an Jiaotong-Liverpool University", meta: 'Economics & Finance　|　Sep 2021 - Jul 2025',
           desc: 'Majored in Economics and Finance, with coursework in macro/microeconomics, econometrics, financial markets and investment analysis.',
           highlights: ["Xi'an Jiaotong University Visiting Student (Sep 2022 - Jul 2023) — Visiting Scholarship", 'University of Groningen Exchange (Aug 2023 - Jul 2024) — Exchange Scholarship'] }
       },
@@ -382,7 +763,7 @@
         zh: { degree: '硕士', school: '新加坡国立大学', meta: 'Master of Computing 计算机专业　|　2025.08 - 2027.05',
           desc: '就读于计算学院 Master of Computing 项目，聚焦计算机科学核心方向，提升技术与产品的交叉能力。',
           highlights: [] },
-        en: { degree: 'Master\'s Degree', school: 'National University of Singapore', meta: 'Master of Computing　|　Aug 2025 - May 2027',
+        en: { degree: "Master's Degree", school: 'National University of Singapore', meta: 'Master of Computing　|　Aug 2025 - May 2027',
           desc: 'Enrolled in the School of Computing, Master of Computing program, focusing on computer science fundamentals and building cross-disciplinary tech-product capabilities.',
           highlights: [] }
       }
@@ -410,13 +791,13 @@
           company: 'Xiaohongshu', role: 'Commercialization Operations Intern', date: 'Feb 2025 - Apr 2025', now: false,
           projects: [
             { title: 'Brand Pain Point Diagnosis & Big Data Insights', blocks: [
-              { name: 'Core Bestseller Pain Point Analysis', desc: 'Deeply analyzed YoY search and readership data for Shu Uemura and competitors on-platform, precisely identifying pain points for the core bestseller (U8 Cleansing Oil) impacted by the "cleanse + nourish" trend. Conducted in-depth analysis of penetration bottlenecks for classic categories (small square bottle) and blue-ocean opportunities for emerging categories (powder/mist), providing robust data support for iterating front-end business strategies.' }
+              { name: 'Core Bestseller Pain Point Analysis', desc: 'Deeply analyzed YoY search and readership data for Shu Uemura and competitors on-platform, precisely identifying pain points for the core bestseller (U8 Cleansing Oil) impacted by the "cleanse + nourish" trend.' }
             ], metrics: ['Competitor Search Analysis', 'Category Blue Ocean Mapping'] },
             { title: 'User Data Mining & Reverse Funnel Strategy', blocks: [
-              { name: 'Refined User Persona & Penetration Growth', desc: 'Cleaned and analyzed data for 200,000+ purchasing users, building a refined persona model (focused on high-tier cities and post-95/00 high-net-worth individuals). Applied a reverse funnel model to segment high-potential users, quantified a 20%-40% penetration gap versus competitors, and formulated precision targeting plans — driving a 10% penetration increase among target users for the spring makeup campaign.' }
+              { name: 'Refined User Persona & Penetration Growth', desc: 'Cleaned and analyzed data for 200,000+ purchasing users, building a refined persona model. Applied a reverse funnel model to segment high-potential users, quantified a 20%-40% penetration gap versus competitors — driving a 10% penetration increase among target users.' }
             ], metrics: ['200K+ User Data Analyzed', '20-40% Gap Quantified', 'Target Penetration +10%'] },
             { title: 'Scenario-Based Solutions & Search Mindshare Building', blocks: [
-              { name: 'KFS Combination & Scenario-Based Output', desc: 'Combined KFS (Key Feature Set) links with segmented trend scenarios (commuting, travel, holidays) to extract scenario-based solutions such as "oil-based skincare ritual." Through deep binding of core search keywords like "skincare ritual," established users\' primary perception of the brand as "gentle and non-irritating," improving conversion efficiency within the platform\'s core journey.' }
+              { name: 'KFS Combination & Scenario-Based Output', desc: 'Combined KFS links with segmented trend scenarios to extract scenario-based solutions such as "oil-based skincare ritual," improving conversion efficiency within the platform\'s core journey.' }
             ], metrics: ['KFS Scenario Planning', 'Brand Search Mindshare'] }
           ],
           skills: ['SQL', 'Streamlit', 'Excel (Vlookup/Pivot)']
@@ -428,14 +809,14 @@
           company: '美团', role: '搜索产品运营实习生', date: '2025.06 - 2025.08', now: false,
           projects: [
             { title: 'App 端触点调研与产品 from 0 to 1 落地', blocks: [
-              { name: 'AI 智能上单系统', desc: '针对团单信息不规范导致搜索召回率低的核心痛点开展需求调研，主导引入"AI 智能上单系统"并完成业务逻辑设计。协同研发团队跟进项目进度并深度参与测试验收环节，上线后首批试点类目（个性写真）的团单搜索召回率提升约 15%，商家上单效率平均加快 40%，关键类目（婚纱摄影）月度上单率成功提升 8%。' }
+              { name: 'AI 智能上单系统', desc: '针对团单信息不规范导致搜索召回率低的核心痛点开展需求调研，主导引入"AI 智能上单系统"并完成业务逻辑设计。上线后首批试点类目搜索召回率提升约 15%，商家上单效率平均加快 40%，关键类目月度上单率提升 8%。' }
             ], metrics: ['搜索召回率+15%', '上单效率+40%', '月度上单率+8%'] },
             { title: '全生命周期管理与流量策略迭代', blocks: [
-              { name: '"价量提权"专项生命周期管理', desc: '承担"价量提权"专项的全生命周期管理，主导跨部门协作推动超 2,000 家商家参与梯度扣扶。联动产品团队构建底层数据监控体系，发起 5,000 个 C 端用户调研，精准测算"孕婴童（平均 6.5km）"与"快照（平均 2.8km）"的距离弹性，反哺底层分发模型优化。推动快照商家接入提权项目使上线率在两月内提升 9%，最终为整体参与商家平均提升 18% 的搜索与推荐流量，推动整体 GTV 同比增长 32%、环比增长 22%。' },
-              { name: '线上场景升级与 A/B 实验跑通', desc: '负责"线上场景升级"专项的全生命周期管理与优化迭代。建立严谨的数据跟踪漏斗，主导价格带与类目的 A/B 实验测试（共 200-300 组），精准定位"200-300 元"价格带在"个性写真"类目中对 GTV 的拉动效应最强，全量推广该策略后，实现 GUV 转化率大幅提升 25%，活动期间类目 GTV 实现 2.1 倍的高效增长。' }
+              { name: '"价量提权"专项生命周期管理', desc: '承担"价量提权"专项的全生命周期管理，主导跨部门协作推动超 2,000 家商家参与。最终为整体参与商家平均提升 18% 的搜索与推荐流量，推动整体 GTV 同比增长 32%、环比增长 22%。' },
+              { name: '线上场景升级与 A/B 实验跑通', desc: '主导价格带与类目的 A/B 实验测试（共 200-300 组），精准定位最优价格带，全量推广后实现 GUV 转化率提升 25%，活动期间类目 GTV 实现 2.1 倍增长。' }
             ], metrics: ['GTV 同比+32%', '搜推流量+18%', 'GUV 转化率+25%', 'GTV 2.1x 增长'] },
             { title: '操作手册编写与商家业务赋能', blocks: [
-              { name: '冷启动专项扶持策略', desc: '针对新入驻及未上线商家制定冷启动专项扶持策略，提炼编写清晰易懂的标准化业务操作手册，助力商家高效掌握平台运营。策略上线后目标商家首月平均曝光量提升 150%，"民族服饰/旅拍"类目上单率提升 12%，"孕婴童"曝光增长超 200%。同时，搭建站外营销矩阵，配置约 10 个小红书账号并制定标准化发文 SOP，实现日均互动量超 400，相关话题曝光量累计超 50 万，有效强化了品牌在年轻群体中的心智渗透。' }
+              { name: '冷启动专项扶持策略', desc: '针对新入驻商家制定冷启动扶持策略，目标商家首月曝光量提升 150%。搭建站外营销矩阵，日均互动量超 400，话题曝光累计超 50 万。' }
             ], metrics: ['首月曝光量+150%', '日均互动量>400', '话题曝光>50万'] }
           ],
           skills: ['Python', 'SQL', 'A/B Testing', 'Data Analysis', 'Excel', 'Xiaohongshu SOP']
@@ -444,14 +825,14 @@
           company: 'Meituan', role: 'Search Product Operations Intern', date: 'Jun 2025 - Aug 2025', now: false,
           projects: [
             { title: 'App Touchpoint Research & 0-to-1 Product Launch', blocks: [
-              { name: 'AI Smart Order System', desc: 'Investigated the core pain point of low search recall caused by irregular deal information, and led the introduction of an "AI Smart Order System." Collaborated with R&D to track progress and deeply participated in testing & acceptance. After launch, the first pilot category (portrait photography) saw ~15% higher deal search recall, merchant order efficiency improved 40%, and monthly order rate for the key category (wedding photography) rose 8%.' }
+              { name: 'AI Smart Order System', desc: 'Led the introduction of an "AI Smart Order System." After launch, search recall improved ~15%, merchant order efficiency improved 40%, and monthly order rate rose 8%.' }
             ], metrics: ['Search Recall +15%', 'Order Efficiency +40%', 'Monthly Order Rate +8%'] },
             { title: 'Full Lifecycle Management & Traffic Strategy', blocks: [
-              { name: '"Price-Quantity Boost" Lifecycle Management', desc: 'Owned the full lifecycle of the "Price-Quantity Boost" initiative, leading cross-departmental collaboration to bring 2,000+ merchants into the tiered subsidy program. Built an underlying data monitoring system with the product team, ran 5,000 C-user surveys, and calculated distance elasticity for "infant (avg 6.5km)" and "quick-snapshot (avg 2.8km)" categories to optimize the distribution model. Drove the quick-snapshot onboarding rate up 9% within two months, ultimately lifting search & recommendation traffic 18% for participating merchants, with GTV up 32% YoY and 22% MoM.' },
-              { name: 'Online Scene Upgrade & A/B Testing', desc: 'Managed the full lifecycle of the "Online Scene Upgrade" initiative. Built a rigorous data tracking funnel and led 200-300 A/B tests on price bands and categories — pinpointing that the 200-300 RMB price band had the strongest GTV lift in portrait photography. Full rollout increased GUV conversion 25%, with category GTV growing 2.1x during the campaign.' }
+              { name: '"Price-Quantity Boost" Lifecycle Management', desc: 'Owned the full lifecycle, bringing 2,000+ merchants into the program. Lifted search & recommendation traffic 18%, with GTV up 32% YoY and 22% MoM.' },
+              { name: 'Online Scene Upgrade & A/B Testing', desc: 'Led 200-300 A/B tests on price bands. Full rollout increased GUV conversion 25%, with category GTV growing 2.1x during the campaign.' }
             ], metrics: ['GTV +32% YoY', 'Traffic +18%', 'GUV Conv. +25%', 'GTV 2.1x Growth'] },
             { title: 'Operations Manual & Merchant Empowerment', blocks: [
-              { name: 'Cold-Start Support Strategy', desc: 'Designed a cold-start support strategy for newly onboarded and inactive merchants, compiling standardized operating manuals. After launch, target merchant first-month exposure rose 150%, "ethnic fashion/travel photography" order rate rose 12%, and "infant" exposure grew over 200%. Also built an off-platform marketing matrix with ~10 Xiaohongshu accounts and a standardized posting SOP, achieving 400+ daily interactions and 500K+ cumulative topic impressions.' }
+              { name: 'Cold-Start Support Strategy', desc: 'Target merchant first-month exposure rose 150%. Built an off-platform marketing matrix achieving 400+ daily interactions and 500K+ topic impressions.' }
             ], metrics: ['Month 1 Exposure +150%', 'Daily Interactions 400+', 'Topic Impressions 500K+'] }
           ],
           skills: ['Python', 'SQL', 'A/B Testing', 'Data Analysis', 'Excel', 'Xiaohongshu SOP']
@@ -463,13 +844,13 @@
           company: 'TikTok', role: '策略产品经理实习生', date: '2026.06 - 至今', now: true,
           projects: [
             { title: '项目一：Social Listening 前端系统设计与 Agent 自动化闭环', blocks: [
-              { name: 'PC 端系统 0-1 设计与敏捷落地', desc: '通过 Vibe Coding 独立完成前端管理界面的开发设计并成功上线接入。将业务端复杂的关键词过滤逻辑进行产品化封装，设计标准化提报通路，使前端词语以 Agent 读表 Schema 格式直传，打通业务操作与底层分析代码的数据链路。承担系统全生命周期管理，持续迭代"相似词条检索与校验"功能，避免业务重复上传，大幅提升赋能效果与操作效率。' },
-              { name: '产品需求调研与召回率优化', desc: '深入开展舆情召回环节的产品逻辑调研，通过外网独立抽样，对比情报团队数据与内部 Pipeline 的漏斗差异，精准定位漏报痛点。协同算法与业务团队优化 Prompt，同时通过向情报团队补充关键词规则以及升级底层识别模型，提升了全网高危风险帖子的召回率 50% 至 83%。' },
-              { name: '自动化工作流与报表设计', desc: '主导设计基于大模型的 Agent 自动化工作流，并规划底层 Hive 表需新增的业务字段。系统自动拉取分析数据，每周输出涵盖情感倾向（Sentiment）、关键词分布、主题聚类及显著 Case 摘要的结构化报告，将运营团队单次人工复盘耗时缩短 80%（约 3 小时/报告）。' }
+              { name: 'PC 端系统 0-1 设计与敏捷落地', desc: '通过 Vibe Coding 独立完成前端管理界面的开发设计并成功上线接入。承担系统全生命周期管理，持续迭代"相似词条检索与校验"功能。' },
+              { name: '产品需求调研与召回率优化', desc: '深入开展舆情召回环节调研，协同算法与业务团队优化 Prompt，提升全网高危风险帖子的召回率 50% 至 83%。' },
+              { name: '自动化工作流与报表设计', desc: '主导设计基于大模型的 Agent 自动化工作流，每周输出结构化报告，将运营团队单次人工复盘耗时缩短 80%（约 3 小时/报告）。' }
             ], metrics: ['召回率提升 50%→83%', '人工耗时降低 80%', '3小时/报告'] },
             { title: '项目二：POI 舆情风控产品设计与落地验收', blocks: [
-              { name: '业务逻辑梳理与产品方案制定', desc: '针对 POI 突发性线下公关引发的大量非真实访客恶意刷差评场景，开展深度需求调研。设计全自动化的 Sweep（评价折叠）处理机制，将人应对危机的痛点转化为清晰的系统执行逻辑。' },
-              { name: '项目跟踪验收与闭环管理', desc: '协同项目研发团队，结合不同国家的舆情发酵时间规律，差异化设计并配置动态的 Sweep 期限规则。在项目开发中做好全流程跟踪，并主导印尼地区 Public Opinion 自动回扫策略的测试验收环节，确保超期评论自动折叠功能准确上线，回扫自动化率达 200 评论/case。' }
+              { name: '业务逻辑梳理与产品方案制定', desc: '设计全自动化的 Sweep（评价折叠）处理机制，将人应对危机的痛点转化为清晰的系统执行逻辑。' },
+              { name: '项目跟踪验收与闭环管理', desc: '差异化设计动态 Sweep 期限规则，主导印尼地区测试验收，回扫自动化率达 200 评论/case。' }
             ], metrics: ['回扫自动化 200评论/case', '多国差异化配置'] }
           ],
           skills: ['Python', 'SQL', 'Agent Workflow', 'Product Design', 'Hive', 'Prompt Engineering']
@@ -478,13 +859,13 @@
           company: 'TikTok', role: 'Strategy Product Manager Intern', date: 'Jun 2026 - Present', now: true,
           projects: [
             { title: 'Project 1: Social Listening Frontend & Agent Automation', blocks: [
-              { name: 'PC System 0-to-1 Design & Agile Launch', desc: 'Independently designed and launched the frontend management interface using Vibe Coding. Productized complex keyword filtering logic, designed standardized reporting pipelines, and enabled frontend terms to be transmitted in Agent Schema format — bridging business operations with underlying analytical code data links. Managed the full system lifecycle, continuously iterating the "similar term search and validation" feature, eliminating duplicate uploads and significantly improving empowerment and efficiency.' },
-              { name: 'Product Research & Recall Rate Optimization', desc: 'Conducted deep product research on recall workflows. Used external sampling to compare intelligence team data against internal Pipeline funnel discrepancies, precisely locating underreporting pain points. Collaborated with algorithm and business teams to optimize prompts, and by supplementing keyword rules and upgrading the underlying recognition model, boosted high-risk post recall rate across the network from 50% to 83%.' },
-              { name: 'Automated Workflow & Report Design', desc: 'Led the design of a large-model Agent automation workflow and planned new business fields for underlying Hive tables. The system auto-pulls analytical data and outputs weekly structured reports covering Sentiment, keyword distribution, topic clustering, and notable Case summaries — reducing the ops team\'s manual review time by 80% (approx. 3 hours/report).' }
+              { name: 'PC System 0-to-1 Design & Agile Launch', desc: 'Independently designed and launched the frontend management interface using Vibe Coding. Managed the full system lifecycle.' },
+              { name: 'Product Research & Recall Rate Optimization', desc: 'Collaborated with algorithm and business teams to optimize prompts, boosted high-risk post recall rate from 50% to 83%.' },
+              { name: 'Automated Workflow & Report Design', desc: "Led the design of a large-model Agent automation workflow — reducing the ops team's manual review time by 80% (approx. 3 hours/report)." }
             ], metrics: ['Recall Rate 50% to 83%', '80% Manual Time Saved', '3h per Report'] },
             { title: 'Project 2: POI Public Opinion Risk Control Product', blocks: [
-              { name: 'Business Logic & Product Planning', desc: 'Investigated the scenario of malicious fake negative reviews triggered by POI public relations incidents. Designed a fully automated Sweep (review folding) mechanism, transforming the manual crisis response pain point into a clear system execution logic.' },
-              { name: 'Project Tracking & Closed-Loop Management', desc: 'Collaborated with R&D teams to differentially design and configure dynamic Sweep deadline rules based on sentiment fermentation patterns across countries. Led end-to-end tracking during development and the testing & acceptance phase for the Indonesia region\'s Public Opinion auto-sweep strategy — ensuring the overdue review auto-folding feature launched accurately with an automation rate of 200 reviews/case.' }
+              { name: 'Business Logic & Product Planning', desc: 'Designed a fully automated Sweep (review folding) mechanism for malicious fake reviews.' },
+              { name: 'Project Tracking & Closed-Loop Management', desc: 'Differentially configured dynamic Sweep deadline rules across countries. Automation rate: 200 reviews/case.' }
             ], metrics: ['200 Reviews/Case Automation', 'Multi-Country Config'] }
           ],
           skills: ['Python', 'SQL', 'Agent Workflow', 'Product Design', 'Hive', 'Prompt Engineering']
@@ -505,6 +886,20 @@
       document.getElementById('workLabel').textContent = t.workLabel;
       document.getElementById('futureNote').textContent = t.futureNote;
       document.getElementById('infoHint').textContent = t.infoHint;
+      document.getElementById('skillLabel').textContent = t.skillLabel;
+      document.getElementById('skillPD').textContent = t.skillPD;
+      document.getElementById('skillDA').textContent = t.skillDA;
+      document.getElementById('aboutText').textContent = t.aboutText;
+      document.getElementById('interestLabel').textContent = t.interestLabel;
+      document.getElementById('intTravel').textContent = t.intTravel;
+      document.getElementById('intTravelDesc').textContent = t.intTravelDesc;
+      document.getElementById('intContent').textContent = t.intContent;
+      document.getElementById('intContentDesc').textContent = t.intContentDesc;
+      document.getElementById('intContentBadge').textContent = t.intContentBadge;
+      document.getElementById('intProd').textContent = t.intProd;
+      document.getElementById('intProdDesc').textContent = t.intProdDesc;
+      document.getElementById('contactTitle').textContent = t.contactTitle;
+      document.getElementById('contactDesc').textContent = t.contactDesc;
       renderEdu();
       renderTimeline();
     }
@@ -514,9 +909,9 @@
       const order = ['bachelor', 'master'];
       grid.innerHTML = order.map(k => {
         const d = eduData[k][lang];
-        const highlightsHTML = d.highlights.length > 0 ? '<div style="margin-top:12px">' + d.highlights.map(h => `<div class="edu-highlight">🏆 ${h}</div>`).join('') + '</div>' : '';
+        const highlightsHTML = d.highlights.length > 0 ? '<div style="margin-top:12px">' + d.highlights.map(h => `<div class="edu-highlight">${h}</div>`).join('') + '</div>' : '';
         return `
-          <article class="edu-card">
+          <article class="edu-card reveal">
             <div class="edu-icon">${icons[k]}</div>
             <div class="edu-degree">${d.degree}</div>
             <div class="edu-school">${d.school}</div>
@@ -526,6 +921,7 @@
           </article>
         `;
       }).join('');
+      observeReveal();
     }
 
     function renderTimeline() {
@@ -553,7 +949,7 @@
         const nowTag = d.now ? `<span class="tcard-now">${i18n[lang].nowTag}</span>` : '';
 
         return `
-          <div class="tnode ${item.key} ${isLast ? 'is-last' : ''}">
+          <div class="tnode ${item.key} ${isLast ? 'is-last' : ''} reveal">
             <div class="tline-col"><div class="tdot"><span class="dot-core"></span></div></div>
             <div class="tcard-wrap">
               <article class="tcard" id="card-${item.key}" onclick="toggleCard('${item.key}')">
@@ -577,6 +973,7 @@
           </div>
         `;
       }).join('');
+      observeReveal();
     }
 
     function toggleCard(key) {
@@ -592,7 +989,34 @@
       }
     }
 
+    function observeReveal() {
+      const els = document.querySelectorAll('.reveal:not(.visible)');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+            const bars = entry.target.querySelectorAll('.skill-bar-fill');
+            bars.forEach(bar => {
+              bar.style.width = bar.dataset.width;
+            });
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(el => observer.observe(el));
+    }
+
     setLang('zh');
+    observeReveal();
+
+    setTimeout(() => {
+      document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+        const parent = bar.closest('.reveal');
+        if (parent && parent.classList.contains('visible')) {
+          bar.style.width = bar.dataset.width;
+        }
+      });
+    }, 300);
   </script>
 </body>
 </html>
